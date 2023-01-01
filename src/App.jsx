@@ -8,40 +8,35 @@ import Missing from "./Missing";
 import PostPage from "./PostPage";
 import Footer from "./Footer";
 import { useEffect, useState } from "react";
-// import { format } from "date-fns";
+import { format } from "date-fns";
+import api from "./api/posts";
 
 function App() {
-  const [posts, setPosts] = useState([
-    {
-      id: 1,
-      title: "My First Post",
-      datetime: "July 01, 2021 11:17:36 AM",
-      body: "Candycode is an alternative agency that exclusively works with alternative people and companies to build avant-garde brands and cutting-edge websites. One of the founders, Sophia Andren, also runs the Tailwind Discord community. The candycode website is a Gatsby site and uses Tailwind CSS.",
-    },
-    {
-      id: 2,
-      title: "My 2nd Post",
-      datetime: "July 01, 2021 11:17:36 AM",
-      body: "Candycode is an alternative agency that exclusively works with alternative people and companies to build avant-garde brands and cutting-edge websites. One of the founders, Sophia Andren, also runs the Tailwind Discord community. The candycode website is a Gatsby site and uses Tailwind CSS.",
-    },
-    {
-      id: 3,
-      title: "My 3rd Post",
-      datetime: "July 01, 2021 11:17:36 AM",
-      body: "Candycode is an alternative agency that exclusively works with alternative people and companies to build avant-garde brands and cutting-edge websites. One of the founders, Sophia Andren, also runs the Tailwind Discord community. The candycode website is a Gatsby site and uses Tailwind CSS.",
-    },
-    {
-      id: 4,
-      title: "My 4th Post",
-      datetime: "July 01, 2021 11:17:36 AM",
-      body: "Candycode is an alternative agency that exclusively works with alternative people and companies to build avant-garde brands and cutting-edge websites. One of the founders, Sophia Andren, also runs the Tailwind Discord community. The candycode website is a Gatsby site and uses Tailwind CSS.",
-    },
-  ]);
+  const [posts, setPosts] = useState([]);
   const [search, setSearch] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [postTitle, setPostTitle] = useState("");
   const [postBody, setPostBody] = useState("");
   const history = useNavigate();
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const response = await api.get("/posts");
+        setPosts(response.data);
+      } catch (error) {
+        if (error.response) {
+          //Not in the 200 response range
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        } else {
+          console.log(`Error:${err.message}`);
+        }
+      }
+    };
+    fetchPosts();
+  }, []);
 
   useEffect(() => {
     const filteredResults = posts.filter(
@@ -52,22 +47,32 @@ function App() {
     setSearchResults(filteredResults.reverse());
   }, [posts, search]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const id = posts.length ? posts[posts.length - 1].id + 1 : 1;
     const datetime = format(new Date(), "MMMM dd,yyyy pp");
     const newPost = { id, title: postTitle, datetime, body: postBody };
-    const allPosts = [...posts, newPost];
-    setPosts(allPosts);
-    setPostTitle("");
-    setPostBody("");
-    history.push("/");
+    try {
+      const response = await api.post("/posts", newPost);
+      const allPosts = [...posts, response.data];
+      setPosts(allPosts);
+      setPostTitle("");
+      setPostBody("");
+      history.push("/");
+    } catch (error) {
+      console.log(`Error:${error.message}`);
+    }
   };
 
-  const handleDelete = (id) => {
-    const postsList = posts.filter((post) => post.id !== id);
-    setPosts(postsList);
-    history.push("/");
+  const handleDelete = async (id) => {
+    try {
+      await api.delete(`/posts/${id}`);
+      const postsList = posts.filter((post) => post.id !== id);
+      setPosts(postsList);
+      history.push("/");
+    } catch (error) {
+      console.log(`Error:${error.message}`);
+    }
   };
   return (
     <div className="App">

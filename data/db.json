@@ -1,0 +1,40 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "My First Post",
+      "datetime": "July 01, 2021 11:17:36 AM",
+      "body": "Candycode is an alternative agency that exclusively works with alternative people and companies to build avant-garde brands and cutting-edge websites. One of the founders, Sophia Andren, also runs the Tailwind Discord community. The candycode website is a Gatsby site and uses Tailwind CSS."
+    },
+    {
+      "id": 2,
+      "title": "My 2nd Post",
+      "datetime": "July 01, 2021 11:17:36 AM",
+      "body": "Candycode is an alternative agency that exclusively works with alternative people and companies to build avant-garde brands and cutting-edge websites. One of the founders, Sophia Andren, also runs the Tailwind Discord community. The candycode website is a Gatsby site and uses Tailwind CSS."
+    },
+    {
+      " id": 3,
+      "title": "My 3rd Post",
+      "datetime": "July 01, 2021 11:17:36 AM",
+      "body": "Candycode is an alternative agency that exclusively works with alternative people and companies to build avant-garde brands and cutting-edge websites. One of the founders, Sophia Andren, also runs the Tailwind Discord community. The candycode website is a Gatsby site and uses Tailwind CSS."
+    },
+    {
+      "id": 4,
+      " title": "My 4th Post",
+      "datetime": "July 01, 2021 11:17:36 AM",
+      "body": "Candycode is an alternative agency that exclusively works with alternative people and companies to build avant-garde brands and cutting-edge websites. One of the founders, Sophia Andren, also runs the Tailwind Discord community. The candycode website is a Gatsby site and uses Tailwind CSS."
+    },
+    {
+      "id": 5,
+      "title": "its 2023",
+      "datetime": "January 01,2023 4:18:22 PM",
+      "body": "this is gonna be good"
+    },
+    {
+      "id": 6,
+      "title": "Test Post",
+      "datetime": "January 01,2023 4:22:38 PM",
+      "body": "Second post"
+    }
+  ]
+}
